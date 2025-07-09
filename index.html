@@ -13,18 +13,30 @@
 
 <body>
 
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"> <a href="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> <svg
-                class="bi me-2" width="40" height="32" aria-hidden="true">
-                <use xlink:href="#bootstrap"></use>
-            </svg> <span class="fs-4">Papa Thai</span> </a>
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Menu</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Reservation</a></li>
-        </ul>
-    </header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Thirteenth navbar example">
+        <div class="container-fluid"> <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false"
+                aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+            <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11"> <a class="navbar-brand col-lg-3 me-0"
+                    href="#">Centered nav</a>
+                <ul class="navbar-nav col-lg-6 justify-content-lg-center">
+                    <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Home</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#">Link</a> </li>
+                    <li class="nav-item"> <a class="nav-link disabled" aria-disabled="true">Disabled</a> </li>
+                    <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#"
+                            data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="d-lg-flex col-lg-3 justify-content-lg-end"> <button class="btn btn-primary">Button</button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <div class="px-4 py-5 my-5 text-center"> <img class="d-block mx-auto mb-4"
             src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
@@ -89,13 +101,15 @@
         </div>
     </div>
 
+    <!-- Footer block -->
     <div class="container">
         <footer class="py-5">
             <div class="row">
                 <div class="col-6 col-md-2 mb-3">
                     <h5>Section</h5>
                     <ul class="nav flex-column">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+                        <li class="nav-item mb-2"><a href="index.html" class="nav-link p-0 text-body-secondary">Home</a>
+                        </li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
                         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
