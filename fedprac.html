@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>FedPrac</title>
+        <style>
+            * { box-sizing: border-box; }
+            body, html {
+                margin: 0;
+                padding: 0;
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
+                font-family: sans-serif;
+            }
+            #container {
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            #ball {
+                position: absolute;
+                width: 80px;
+                height: 40px;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 0;
+            }
+
+            #ball::before {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-left: 40px solid transparent;
+                border-right: 40px solid transparent;
+                border-bottom: 40px solid #ff6b6b;
+                left: 10px;
+                top: 5px;
+                transform: rotate(180deg);
+            }
+
+            #ball::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-left: 20px solid transparent;
+                border-right: 20px solid transparent;
+                border-bottom: 30px solid #ff4757;
+                right: -15px;
+                top: -12px;
+                transform: rotate(90deg);
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <div id="ball"></div>
+        </div>
+
+        <script>
+            const container = document.getElementById('container');
+            const ball = document.getElementById('ball');
+
+            speed = 0;
+            position = 0;
+            gravity = 0.5;
+            energyloss = 0.8;
+            rotation = 0;
+            floor = container.clientHeight - 50; 
+
+            setInterval(function(){
+                speed += gravity; // apply gravity
+                position += speed;
+
+                if(position >= floor) {
+                    position = floor;
+                    speed *= -energyloss; 
+                } else if(position < 0) {
+                    speed *= -energyloss; 
+                }
+
+                // rotation
+                if (speed < 0) {
+                    rotation = Math.max(-30, speed * 2);
+                } else {
+                    rotation = Math.min(30, speed * 3);
+                }
+                
+                ball.style.top = position + 'px';
+                ball.style.transform = "translateX(-50%) rotate(" + rotation + "deg)";
+
+
+            }, 10);
+
+            document.addEventListener('keydown',function(event) {
+                if(event.code === 'Space') { // space bar to jump
+                    speed = -15;
+                }
+            });
+
+        </script>
+    </body>
+
+</html>

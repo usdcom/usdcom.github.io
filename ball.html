@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ball</title>
+  <style>
+    * { box-sizing: border-box; }
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #f0f0f0;
+      font-family: sans-serif;
+    }
+
+    #container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    #ball {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: crimson;
+      border-radius: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+    }
+
+    #counter {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container">
+    <div id="counter">Bounces: 0</div>
+    <div id="ball"></div>
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const ball = document.getElementById('ball');
+    const counter = document.getElementById('counter');
+
+    const gravity = 0.5;
+    const bounceRate = 0.8; // energy loss
+    const jumpSpeed = -15;
+    const minBounce = 2;
+
+    let speed = 5;
+    let positionY = 0;
+    let bounces = 0;
+    const floorY = container.clientHeight - ball.offsetHeight;
+    const ceilingY = 0;
+
+    function updateloop() {
+      speed += gravity;
+      positionY += speed;
+
+      if (positionY >= floorY) {
+        positionY = floorY;
+        speed *= -1;
+        speed *= -bounceRate;
+
+        if (Math.abs(speed) > minBounce) {
+          bounces++;
+          counter.textContent = `Bounces: ${bounces}`;
+        }
+      }
+
+      if (positionY <= ceilingY) {
+        positionY = ceilingY;
+        speed *= -1;
+        speed *= -bounceRate;
+      }
+
+      ball.style.top = `${positionY}px`;
+
+      requestAnimationFrame(updateloop);
+    }
+
+    function jump() {
+      speed = jumpSpeed;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        jump();
+      }
+    });
+
+
+    
+
+    // Start the loop
+    updateloop();
+  </script>
+
+</body>
+</html>
