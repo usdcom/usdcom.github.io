@@ -54,17 +54,27 @@
                 transform: rotate(90deg);
             }
 
+            #display {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                font-size: 24px;
+                color: #333;
+            }
+
         </style>
     </head>
 
     <body>
         <div id="container">
+            <div id="display">Speed: <span id="speed-value">0</span></div>
             <div id="ball"></div>
         </div>
 
         <script>
             const container = document.getElementById('container');
             const ball = document.getElementById('ball');
+            const speedValue = document.getElementById('speed-value');
 
             speed = 0;
             position = 0;
@@ -74,7 +84,7 @@
             floor = container.clientHeight - 50; 
 
             setInterval(function(){
-                speed += gravity; // apply gravity
+                speed += gravity;
                 position += speed;
 
                 if(position >= floor) {
@@ -90,10 +100,11 @@
                 } else {
                     rotation = Math.min(30, speed * 3);
                 }
+
+                speedValue.textContent = Math.round(speed * 10) / 10; // update speed display
                 
                 ball.style.top = position + 'px';
                 ball.style.transform = "translateX(-50%) rotate(" + rotation + "deg)";
-
 
             }, 10);
 

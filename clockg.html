@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stop the Second Hand Game</title>
+  <style>
+    body {
+      background: #f5f5f5;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #clock {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border: 10px solid #333;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .hand {
+      position: absolute;
+      width: 2px;
+      height: 140px;
+      background: red;
+      top: 10px;
+      left: 50%;
+      transform-origin: bottom center;
+      transform: rotate(0deg);
+    }
+
+    .center-dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: black;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #score {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+    #hint {
+      margin-top: 10px;
+      color: #666;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="clock">
+    <div class="hand" id="second-hand"></div>
+    <div class="center-dot"></div>
+  </div>
+
+  <div id="score">Press Space or Click to Stop!</div>
+  <div id="hint">(Stop the red hand as close to 12 o'clock as possible)</div>
+  <button onclick="startGame()">Restart</button>
+
+  <script>
+    const secondHand = document.getElementById('second-hand');
+    const scoreDisplay = document.getElementById('score');
+
+    let angle = 0;
+    let running = false;
+    let lastTimestamp = null;
+    let animationFrame;
+
+    function updateHand(timestamp) {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const delta = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+
+      if (running) {
+        // Rotate ~6 degrees per 100ms (360 deg in 6s)
+        angle += (delta * 0.5); 
+        angle %= 360;
+        secondHand.style.transform = `rotate(${angle}deg)`;
+        animationFrame = requestAnimationFrame(updateHand);
+      }
+    }
+
+    function stopHand() {
+      if (!running) return;
+      running = false;
+      cancelAnimationFrame(animationFrame);
+
+      // Scoring
+      const distanceFrom12 = Math.min(Math.abs(angle), 360 - Math.abs(angle));
+      const score = Math.max(0, Math.round(100 - (distanceFrom12 * 3))); // 0-100 score
+      scoreDisplay.textContent = `Stopped at ${angle.toFixed(1)}° → Score: ${score}/100`;
+    }
+
+    function startGame() {
+      angle = 0;
+      running = true;
+      lastTimestamp = null;
+      scoreDisplay.textContent = 'Press Space or Click to Stop!';
+      secondHand.style.transform = `rotate(0deg)`;
+      animationFrame = requestAnimationFrame(updateHand);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        stopHand();
+      }
+    });
+
+    document.addEventListener('click', () => {
+      stopHand();
+    });
+
+    startGame();
+  </script>
+
+</body>
+</html>
